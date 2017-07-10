@@ -223,7 +223,7 @@ static inline uint8_t get_scan_code(void)
 void app_main() {
 	ESP_LOGI(tag, ">> test1_task");
 	gpio_num_t gpio;
-	q1 = xQueueCreate(40, 10 * sizeof(gpio_num_t));
+	q1 = xQueueCreate(4, 10 * sizeof(gpio_num_t));
 	if (q1 == 0)
 		printf("failed to create queue.\n");
 
