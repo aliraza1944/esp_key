@@ -34,7 +34,7 @@ void app_main(){
        } else if (c == PS2_DELETE) {
          printf("[Del]");
        } else {
-         printf("%c", c);
+         printf("%c\n", c);
        }
    }
   }
