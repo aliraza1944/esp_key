@@ -2,7 +2,6 @@
 
 static volatile uint8_t buffer[45];
 static volatile uint8_t head, tail;
-static uint8_t Key_UP=0, Shift = 0;
 
 static uint8_t CharBuffer=0;
 static uint8_t UTF8next=0;
@@ -54,23 +53,6 @@ char Keymap_US [2][PS2_KEYMAP_SIZE] = {
 	PS2_F11, '+', '3', '-', '*', '9', PS2_SCROLL, 0,
 	0, 0, 0, PS2_F7 }
 };
-
-#if 0
-uint8_t UnShifted[3][2] = {
-{0x1C, 'a'},
-{0x32, 'b'},
-{0x21, 'c'}
-};
-
-uint8_t Shifted[3][2] = {
-{0x1C, 'A'},
-{0x32, 'B'},
-{0x21, 'C'}
-};
-#endif
-
-
-
 
 static void IRAM_ATTR handler(){
 
@@ -148,7 +130,7 @@ static inline uint8_t get_scan_code()
 
 uint8_t Decode(){
 	static uint8_t state=0;
-	uint8_t s,TempCyc;
+	uint8_t s;
 	char c;
 
 	while (1) {
@@ -211,23 +193,6 @@ uint8_t Decode(){
 				  default: break;
 				}
 			}
-
-			#if 0
-			else if (state & (SHIFT_L | SHIFT_R)) {
-				if (s < 150){
-					for (TempCyc = 0;(Shifted[TempCyc][0]!=s)&&(TempCyc<3);TempCyc++);
-						if (Shifted[TempCyc][0] == s)
-							c = Shifted[TempCyc][1];
-				}
-			}
-			else {
-				if (s < 150){
-					for (TempCyc = 0;(UnShifted[TempCyc][0]!=s)&&(TempCyc<3);TempCyc++);
-						if (UnShifted[TempCyc][0] == s)
-							c = UnShifted[TempCyc][1];
-				}
-			}
-			#endif
 
 			else if (state & (SHIFT_L | SHIFT_R)) {
 				if (s < PS2_KEYMAP_SIZE)
